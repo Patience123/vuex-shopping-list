@@ -1,7 +1,7 @@
 <template>
   <div id="list-one">
     <p>ProductListOne</p>
-    <button class="btn" @click="reducePrice(4)">商品降价</button>
+    <button class="btn" @click="reducePriceAsync(4)">商品降价</button>
     <ul>
       <li class="item" v-for="product in saleProducts" :key="product.id">
         <div class="picture">{{product.name}}</div>
@@ -12,6 +12,9 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
+import {mapActions} from 'vuex'
+
 export default {
   data () {
     return {
@@ -19,18 +22,24 @@ export default {
     }
   },
   computed: {
-    productList () {
-      return this.$store.state.productList;
-    },
-    saleProducts () {
-      return this.$store.getters.saleProducts;
-    }
+    // productList () {
+    //   return this.$store.state.productList;
+    // },
+    // saleProducts () {
+    //   return this.$store.getters.saleProducts;
+    // }
+    ...mapGetters([
+      "saleProducts"
+    ])
   },
   methods: {
-    reducePrice (amount) {
-    //   return this.$store.commit('reducePrice', 4);
-      return this.$store.dispatch("reducePriceAsync", amount);
-    }
+    // reducePriceAsync (amount) {
+    // //   return this.$store.commit('reducePrice', 4);
+    //   return this.$store.dispatch("reducePriceAsync", amount);
+    // }
+    ...mapActions([
+      "reducePriceAsync"
+    ])
   }
 }
 </script>
